@@ -1,0 +1,6 @@
+node_modules
+build
+.env*
+.DS_Store
+# the PDF lives in Google Drive, not in the repo
+upload-to-google-drive/
