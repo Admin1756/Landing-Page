@@ -17,7 +17,7 @@ export default function Hero({ onStart }) {
             Build wealth without compromising Your <span className="zz-yellow">Akhirah</span>
           </h1>
           <p className="zz-hero-sub">
-            Invest in our Halal smallcases that have earned over 30%* return in the past year. Every stock in our portfolio is 100% Shariah-compliant
+            Invest in our Halal smallcases that have earned over 20%* return in the past year. Every stock in our portfolio is 100% Shariah-compliant
           </p>
           <div className="zz-hero-actions">
             <button className="btn gold" onClick={() => scrollTo("smallcases")}>Pick a smallcase</button>

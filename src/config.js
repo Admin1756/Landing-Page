@@ -92,5 +92,5 @@ export const RECOMMENDATIONS = {
 /* ---------- Editable copy ---------- */
 export const HERO_FOOTNOTE = "*Returns shown are based on last one year performance. Investments in securities are subject to market risk. Read all scheme-related documents carefully before investing.";
 export const FOUNDER_TAGLINE = "25 years of Islamic Banking & Finance experience";
-export const COMPARISON_SUBTEXT = "See Zamzam Capital's performance as compared to other Shariah-compliant funds as of 16/10/2026";
+export const COMPARISON_SUBTEXT = "See Zamzam Capital's performance as compared to other Shariah-compliant funds as of 01/11/2026";
 export const COMPARISON_NOTE = "Source: www.groww.in, www.smallcase.com";
