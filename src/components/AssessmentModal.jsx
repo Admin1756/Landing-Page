@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FORMS } from "../config";
 import { QUESTIONS } from "../data/questions";
+import { useOffer } from "../offer";
 import { fire } from "../utils/pixel";
 import { buildPlan } from "../utils/plan";
 import { submitToSheet } from "../utils/sheets";
@@ -23,7 +24,8 @@ const answersRow = (answers) => {
   return row;
 };
 
-export default function AssessmentModal({ profile, onClose, onWorkbook }) {
+export default function AssessmentModal({ profile, onClose }) {
+  const { claim } = useOffer();
   const [i, setI] = useState(0);
   const [answers, setAnswers] = useState({});
   const [plan, setPlan] = useState(null);
@@ -111,6 +113,7 @@ export default function AssessmentModal({ profile, onClose, onWorkbook }) {
       },
     }, 0);
     fire("ffCompleted", { content_name: "Financial Freedom Plan", status: true });
+    claim(); // stops the countdown and shows the congratulations message
   };
 
   const back = () => { setError(""); setI((x) => Math.max(0, x - 1)); };
@@ -118,7 +121,7 @@ export default function AssessmentModal({ profile, onClose, onWorkbook }) {
   if (plan) {
     return (
       <Modal onClose={onClose} wide labelId="ff-result-title">
-        <ResultScreen plan={plan} profile={profile} headingRef={headingRef} onWorkbook={onWorkbook} />
+        <ResultScreen plan={plan} profile={profile} headingRef={headingRef} />
       </Modal>
     );
   }

@@ -1,6 +1,6 @@
 import { PLAN, RECOMMENDATIONS } from "../config";
 import { QUESTIONS } from "../data/questions";
-import { SMALLCASES } from "../data/smallcases";
+import { SMALLCASES } from "../data/planSmallcases";
 
 const LEVELS = ["Low", "Medium", "High"];
 
@@ -77,7 +77,7 @@ export function buildPlan({ age, answers }, questions = QUESTIONS) {
   const sc = SMALLCASES.find((s) => s.scid === RECOMMENDATIONS[risk.level]);
   if (!sc) {
     // eslint-disable-next-line no-console
-    console.error(`[plan] RECOMMENDATIONS.${risk.level} = "${RECOMMENDATIONS[risk.level]}" is not listed in src/data/smallcases.js`);
+    console.error(`[plan] RECOMMENDATIONS.${risk.level} = "${RECOMMENDATIONS[risk.level]}" is not listed in src/data/planSmallcases.js`);
   }
   const smallcase = sc || SMALLCASES[0];
 

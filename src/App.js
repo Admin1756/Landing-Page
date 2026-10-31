@@ -1,56 +1,77 @@
 import { useEffect, useState } from "react";
 import "./styles/zamzam.css";
 
-import { initPixel } from "./utils/pixel";
+import { OfferProvider, useOffer } from "./offer";
+import { fire, fireSmallcase } from "./utils/pixel";
 import { captureAttribution } from "./utils/tracking";
 
-import TopBar from "./components/TopBar";
+import OfferBanner from "./components/OfferBanner";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import TrustStrip from "./components/TrustStrip";
-import PainPoints from "./components/PainPoints";
 import ComparisonTable from "./components/ComparisonTable";
-import WorkbookSection from "./components/WorkbookSection";
-import HowItWorks from "./components/HowItWorks";
+import SmallcaseSection from "./components/SmallcaseSection";
+import Calculator from "./components/Calculator";
 import Founder from "./components/Founder";
 import Testimonials from "./components/Testimonials";
-import FaqSection from "./components/FaqSection";
-import FinalCta from "./components/FinalCta";
+import FAQSection from "./components/Faq";
+import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
-import StickyCta from "./components/StickyCta";
+import CouponModal from "./components/CouponModal";
 import AssessmentModal from "./components/AssessmentModal";
-import WorkbookModal from "./components/WorkbookModal";
 
-export default function ZamzamLanding() {
-  const [profile, setProfile] = useState(null);       // set when the header form is submitted
-  const [workbook, setWorkbook] = useState(null);     // { source, initial } when the modal is open
+const pixelParams = (item) => ({
+  content_name: item.name,
+  content_ids: [item.scid],
+  content_type: "product",
+});
 
-  useEffect(() => { captureAttribution(); initPixel(); }, []);
+function Page() {
+  const { claim } = useOffer();
+  const [profile, setProfile] = useState(null); // set when the Financial Freedom form is submitted
+  const [coupon, setCoupon] = useState(null);   // the smallcase whose coupon pop-up is open
 
-  const openWorkbook = (source, initial) => {
-    setProfile(null); // close the plan if the workbook was opened from its result screen
-    setWorkbook({ source, initial });
+  // Meta Pixel base code + PageView are in public/index.html
+  useEffect(() => { captureAttribution(); }, []);
+
+  // "Subscribe with 20% off" on a card: Pixel event, stop the timer, open the coupon pop-up
+  const handleSubscribe = (item) => {
+    fire("subscribeClick", pixelParams(item));
+    claim();
+    setCoupon(item);
+  };
+
+  // Final button in the pop-up: standard Subscribe event + one custom event per smallcase
+  const handleProceed = (item) => {
+    fire("subscribeFinal", pixelParams(item));
+    fireSmallcase(item.scid, pixelParams(item));
   };
 
   return (
     <div className="zz">
-      <TopBar />
-      <Navbar onWorkbook={openWorkbook} />
-      <Hero onStart={setProfile} onWorkbook={openWorkbook} />
+      <OfferBanner />
+      <Navbar />
+      <Hero onStart={setProfile} />
       <TrustStrip />
-      <PainPoints />
       <ComparisonTable />
-      <WorkbookSection onWorkbook={openWorkbook} />
-      <HowItWorks />
+      <SmallcaseSection onInvest={handleSubscribe} />
+      <Calculator />
       <Founder />
       <Testimonials />
-      <FaqSection />
-      <FinalCta />
+      <FAQSection />
+      <ContactSection />
       <Footer />
-      <StickyCta onWorkbook={openWorkbook} hidden={!!profile || !!workbook} />
 
-      {profile && <AssessmentModal profile={profile} onClose={() => setProfile(null)} onWorkbook={openWorkbook} />}
-      {workbook && <WorkbookModal source={workbook.source} initial={workbook.initial} onClose={() => setWorkbook(null)} />}
+      {coupon && <CouponModal item={coupon} onProceed={handleProceed} onClose={() => setCoupon(null)} />}
+      {profile && <AssessmentModal profile={profile} onClose={() => setProfile(null)} />}
     </div>
+  );
+}
+
+export default function ZamzamLanding() {
+  return (
+    <OfferProvider>
+      <Page />
+    </OfferProvider>
   );
 }

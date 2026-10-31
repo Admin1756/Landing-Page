@@ -1,10 +1,11 @@
 import { PLAN, ZAMZAM_PHONE, ZAMZAM_PHONE_TEL, ZAMZAM_WHATSAPP } from "../config";
 import { inr } from "../utils/plan";
+import OfferWon from "./OfferWon";
 import SmallcaseEmbed from "./SmallcaseEmbed";
 
 const LEVELS = ["Low", "Medium", "High"];
 
-export default function ResultScreen({ plan, profile, headingRef, onWorkbook }) {
+export default function ResultScreen({ plan, profile, headingRef }) {
   const first = profile.name.split(" ")[0];
   const msg = `Hi Zamzam Capital, I'm ${profile.name}. I just ran the Financial Freedom plan: ${inr(plan.corpus)} by age ${plan.freedomAge}, about ${inr(plan.sipNeeded)} a month, ${plan.riskLevel} risk profile. I'd like to talk.`;
   const wa = `https://wa.me/${ZAMZAM_WHATSAPP}?text=${encodeURIComponent(msg)}`;
@@ -14,6 +15,8 @@ export default function ResultScreen({ plan, profile, headingRef, onWorkbook }) 
       <h2 id="ff-result-title" className="zz-q-title" tabIndex={-1} ref={headingRef}>
         {first}, here is your plan for financial freedom at {plan.freedomAge}
       </h2>
+
+      <OfferWon />
 
       <div className="zz-result-main">
         {plan.sipNeeded > 0 ? (
@@ -70,9 +73,6 @@ export default function ResultScreen({ plan, profile, headingRef, onWorkbook }) 
         <p className="zz-result-cta-text">Next step: a short call with a SEBI-registered analyst to turn this into a portfolio.</p>
         <a className="btn gold" href={`tel:${ZAMZAM_PHONE_TEL}`}>Call us on {ZAMZAM_PHONE}</a>
         <a className="btn outline" href={wa} target="_blank" rel="noopener noreferrer">Message us on WhatsApp</a>
-        <button type="button" className="zz-link" onClick={() => onWorkbook("Plan result", { name: profile.name, email: profile.email, phone: profile.phone })}>
-          Get the free Halal Investor's Workbook
-        </button>
       </div>
 
       <p className="zz-fine">

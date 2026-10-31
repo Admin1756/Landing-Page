@@ -75,7 +75,7 @@ export default function LeadFields({ form, idPrefix, withAge = false, onFirstFoc
       <div className={"zz-consent" + (errors.consent ? " has-error" : "")}>
         <label>
           <input type="checkbox" checked={values.consent} onChange={set("consent")} onFocus={focus} />
-          <span>I agree to be contacted by Zamzam Capital about the workbook, my plan and updates by phone, email and WhatsApp.</span>
+          <span>I agree to be contacted by Zamzam Capital about my plan, the 20% offer and updates by phone, email and WhatsApp.</span>
         </label>
         {errors.consent && <p className="zz-error" role="alert">{errors.consent}</p>}
       </div>

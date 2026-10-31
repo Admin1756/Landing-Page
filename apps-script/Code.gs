@@ -3,13 +3,15 @@
  *
  * What it does
  *  1. Receives both forms from the landing page and saves each in its own sheet (tab).
- *     - "Workbook Leads": one row per submission.
+ *     - "Contact Us": one row per "Have a question? Talk to us" submission
+ *       (name, email, phone, question).
  *     - "Financial Freedom": one row per person, updated after every question,
  *       so you can see where people drop off.
- *  2. Optionally emails your team when someone completes the Financial Freedom plan.
+ *  2. Optionally emails your team when someone completes the Financial Freedom plan
+ *     or sends a Contact Us message.
  *
- * The workbook PDF is NOT sent from here. After the form is saved, the website redirects
- * the visitor to the PDF in Google Drive (set WORKBOOK_DRIVE_FILE_ID in src/config.js).
+ * The Halal Investor's Workbook is no longer collected, so there is no workbook tab any more.
+ * (Your old "Workbook Leads" tab, if it exists, is left untouched.)
  *
  * New columns are created automatically, so editing the questions on the website
  * never needs a change here. Edit only the CONFIG block below.
@@ -22,11 +24,12 @@ const CONFIG = {
   // One entry per form. Leave spreadsheetId "" to use the spreadsheet this script is attached to.
   // Paste a different spreadsheet's ID to keep a form in its own file.
   FORMS: {
-    workbook:         { sheetName: "Workbook Leads",    spreadsheetId: "", updateBySession: false },
+    contact:          { sheetName: "Contact Us",        spreadsheetId: "", updateBySession: false },
     financialFreedom: { sheetName: "Financial Freedom", spreadsheetId: "", updateBySession: true  },
   },
 
-  // Alert e-mail when a lead completes the Financial Freedom plan, e.g. "sales@zamzam-capital.com". "" = off.
+  // Alert e-mail when a lead completes the Financial Freedom plan or sends a Contact Us message,
+  // e.g. "sales@zamzam-capital.com". "" = off.
   NOTIFY_EMAIL: "",
 
   TIMEZONE: "Asia/Kolkata",
@@ -55,7 +58,12 @@ function doPost(e) {
     const saved = saveRow_(sheet, row, form.updateBySession ? "Session ID" : null);
 
     if (payload.form === "financialFreedom" && String(payload.status) === "Completed") {
-      try { notifyTeam_(row); } catch (err) { console.error(err); } // never lose the lead over an alert failure
+      try { notifyTeam_(row, "New Financial Freedom lead: " + (row["Name"] || "") + " (" + (row["Risk level"] || "") + " risk)"); }
+      catch (err) { console.error(err); } // never lose the lead over an alert failure
+    }
+    if (payload.form === "contact") {
+      try { notifyTeam_(row, "New Contact Us enquiry: " + (row["Name"] || "")); }
+      catch (err) { console.error(err); }
     }
     return json_({ ok: true });
   } catch (err) {
@@ -180,18 +188,14 @@ function saveRow_(sheet, row, keyHeader) {
 }
 
 /* ===================================================================
-   TEAM ALERT (Financial Freedom completed)
+   TEAM ALERT (Financial Freedom completed / Contact Us message)
    =================================================================== */
-function notifyTeam_(row) {
+function notifyTeam_(row, subject) {
   if (!CONFIG.NOTIFY_EMAIL) return;
   const lines = Object.keys(row)
     .filter(function (k) { return row[k] !== "" && !/^utm_|^fb|Landing|Referrer/.test(k); })
     .map(function (k) { return k + ": " + row[k]; });
-  MailApp.sendEmail(
-    CONFIG.NOTIFY_EMAIL,
-    "New Financial Freedom lead: " + (row["Name"] || "") + " (" + (row["Risk level"] || "") + " risk)",
-    lines.join("\n")
-  );
+  MailApp.sendEmail(CONFIG.NOTIFY_EMAIL, subject, lines.join("\n"));
 }
 
 /* ===================================================================

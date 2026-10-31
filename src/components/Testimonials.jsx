@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef } from "react";
-import { TESTIMONIALS } from "../data/proof";
+import { TESTIMONIALS } from "../data/site";
 
 export default function Testimonials() {
   const marqueeRef = useRef(null);
@@ -41,8 +41,8 @@ export default function Testimonials() {
   return (
     <section id="testimonials" className="zz-testimonials">
       <div className="zz-testimonials-head">
-        
-        <h2>Trusted by investors in India and abroad</h2>
+        <span className="zz-eyebrow">Testimonials</span>
+        <h2>Trusted by Clients in India & Abroad</h2>
       </div>
       <div ref={marqueeRef} className="zz-marquee">
         {tripled.map((item, idx) => (

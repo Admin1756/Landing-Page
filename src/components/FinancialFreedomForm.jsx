@@ -45,7 +45,7 @@ export default function FinancialFreedomForm({ onStart }) {
   return (
     <form className="zz-ff-card" onSubmit={submit} noValidate id="plan" aria-labelledby="ff-title">
       <h2 id="ff-title">Find your path to financial freedom</h2>
-      <p className="zz-ff-sub">Give 2 minutes to see how much you would need to invest and which Halal portfolio fits your risk profile for free</p>
+      <p className="zz-ff-sub">Give 2 minutes to see how much you would need to invest and which Halal portfolio fits your risk profile, free</p>
       <LeadFields form={form} idPrefix="ff" withAge />
       <button className="btn gold btn-block" type="submit">Calculate my plan</button>
     </form>

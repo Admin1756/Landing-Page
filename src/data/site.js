@@ -1,3 +1,23 @@
+// period is optional: defaults to "12m" unless a smallcase overrides it (e.g. period: "10m")
+export const DEFAULT_PERIOD = "12m";
+ 
+export const SMALLCASES = [
+  { name: "Zamzam Shariah Leaders Smart Beta", scid: "ZMZMSB_0001", risk: "Medium", ret: 24, link: "https://www.smallcase.com/smallcase/ZMZMSB_0001" },
+  { name: "Zamzam Shariah Nifty 50 Smart Beta", scid: "ZMZMSB_0002", risk: "Low", ret: 18, period: "10m", link: "https://www.smallcase.com/smallcase/ZMZMSB_0002" },
+  { name: "Zamzam Shariah New India Theme", scid: "ZMZMNM_0001", risk: "High", ret: 30, link: "https://www.smallcase.com/smallcase/ZMZMNM_0001" },
+  { name: "Zamzam Shariah Auto & Ancillaries Tracker", scid: "ZMZMTR_0002", risk: "Low", ret: -9.1, link: "https://zamzamcapital.smallcase.com/smallcase/ZMZMTR_0002" },
+  { name: "Zamzam Shariah Chemicals & Fertilizers Tracker", scid: "ZMZMTR_0003", risk: "Medium", ret: 22, link: "https://zamzamcapital.smallcase.com/smallcase/ZMZMTR_0003" },
+  { name: "Zamzam Shariah Pharma & Healthcare Tracker", scid: "ZMZMTR_0004", risk: "Medium", ret: 26, link: "https://zamzamcapital.smallcase.com/smallcase/ZMZMTR_0004" },
+];
+
+export const COMPARISON_COLUMNS = [
+  { label: "Zamzam New India Theme (High Growth)", retPerYear: "30.7%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
+  { label: "Zamzam Leaders Smart Beta (Balanced)", retPerYear: "25.4%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
+  { label: ["Tata ", <br key="br" />, " Ethical Fund"], retPerYear: "-9.8%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+  { label: "Taurus Ethical Fund", retPerYear: "-4.9%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+  { label: "Quantum Ethical Fund", retPerYear: "-3.1%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+];
+
 export const TESTIMONIALS = [
   
   {
@@ -87,10 +107,19 @@ export const TESTIMONIALS = [
   }
 ];
 
-export const COMPARISON_COLUMNS = [
-  { label: "Zamzam New India Theme (High Growth)", retPerYear: "30.7%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
-  { label: "Zamzam Leaders Smart Beta (Balanced)", retPerYear: "25.4%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
-  { label: ["Tata Ethical", <br key="br" />, "Fund"], retPerYear: "-9.8%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
-  { label: "Taurus Ethical Fund", retPerYear: "-4.9%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
-  { label: "Quantum Ethical Fund", retPerYear: "-3.1%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+export const NAV_LINKS = [
+  { id: "plan", label: "Financial Freedom" },
+  { id: "comparison", label: "Comparison" },
+  { id: "smallcases", label: "Smallcases" },
+  { id: "calc", label: "Calculator" },
+  { id: "about", label: "About Saif" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faq", label: "FAQs" },
+  { id: "contact", label: "Contact" },
+];
+
+export const CALC_SCENARIOS = [
+  [14, "Low risk"],
+  [21, "Medium risk"],
+  [30, "High risk"],
 ];
