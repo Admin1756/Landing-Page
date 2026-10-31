@@ -32,7 +32,7 @@ In Events Manager, the per-smallcase events appear under custom events after the
 
 ## Google Sheet (leads)
 Two tabs, created automatically:
-- **Contact Us**: name, email, phone, question, consent, UTM / Facebook click ids
+- **Contact Us**: name, mobile, question, consent, UTM / Facebook click ids
 - **Financial Freedom**: one row per person, updated after every question
 
 The workbook is no longer collected (no "Workbook Leads" tab).

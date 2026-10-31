@@ -4,23 +4,35 @@ import { useOffer } from "../offer";
 import { fire } from "../utils/pixel";
 import { submitToSheet } from "../utils/sheets";
 import { newSessionId } from "../utils/tracking";
-import { isEmail, isPhone } from "../utils/validate";
+import { isPhone } from "../utils/validate";
 import OfferWon from "./OfferWon";
 
+function Field({ id, label, error, children }) {
+  return (
+    <div className={"zz-field" + (error ? " has-error" : "")}>
+      <label htmlFor={id}>{label}</label>
+      {children}
+      {error && <p className="zz-error" id={`${id}-err`} role="alert">{error}</p>}
+    </div>
+  );
+}
+
+/** Contact form. Same look as the old workbook form (dark band, white card, labelled fields, consent tick). */
 export default function ContactSection() {
   const { claim } = useOffer();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-  const [form, setForm] = useState({ name: "", email: "", phone: "", q: "", website: "" });
+  const [form, setForm] = useState({ name: "", phone: "", q: "", consent: false, website: "" });
   const set = (k) => (e) => {
-    setForm({ ...form, [k]: e.target.value });
-    if (errors[k]) setErrors({ ...errors, [k]: undefined });
+    const v = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setForm((s) => ({ ...s, [k]: v }));
+    setErrors((s) => (s[k] ? { ...s, [k]: undefined } : s));
   };
 
-  // "Call or WhatsApp Us" button
+  // "Call or WhatsApp" link
   const onCall = () => {
-    fire("contact", { content_name: "Call or WhatsApp button" });
+    fire("contact", { content_name: "Call or WhatsApp link" });
     claim();
   };
 
@@ -28,11 +40,15 @@ export default function ContactSection() {
     e.preventDefault();
     const errs = {};
     if (form.name.trim().length < 2) errs.name = "Enter your name";
-    if (!isEmail(form.email)) errs.email = "Enter a valid email so we can send your offer details";
     if (!isPhone(form.phone)) errs.phone = "Enter a valid mobile number (add + and country code if outside India)";
+    if (!form.consent) errs.consent = "Please tick to continue";
     setErrors(errs);
-    if (Object.keys(errs).length) return;
-    if (form.website) return; // honeypot
+    if (Object.keys(errs).length) {
+      const el = document.getElementById(`ct-${Object.keys(errs)[0]}`);
+      if (el) el.focus();
+      return;
+    }
+    if (form.website) { setSent(true); return; } // honeypot
 
     setLoading(true);
     fire("contact", { content_name: "Contact form" });
@@ -43,7 +59,6 @@ export default function ContactSection() {
       status: "Submitted",
       data: {
         "Name": form.name.trim(),
-        "Email": form.email.trim(),
         "Phone": form.phone.trim(),
         "Question": form.q.trim(),
         "Consent to contact": "Yes",
@@ -54,40 +69,54 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="zz-contact">
-      <h2>Have a question? Talk to us</h2>
-      <div className="zz-contact-call">
-        <a href={`tel:${ZAMZAM_PHONE_TEL}`} className="btn gold" onClick={onCall}>Call or WhatsApp Us ({ZAMZAM_PHONE})</a>
-      </div>
-      {sent ? (
-        <div className="zz-contact-success">
-          <p>Thanks {form.name.trim().split(" ")[0]}! We'll call you soon.</p>
-          <OfferWon />
+    <section id="contact" className="zz-final">
+      <div className="zz-final-inner">
+        <div>
+          <h2>Have a question? Talk to us</h2>
+          <p>
+            Send us your question and our team will call you.<br />
+            Prefer to talk now? Call or WhatsApp us at{" "}
+            <a href={`tel:${ZAMZAM_PHONE_TEL}`} onClick={onCall}>{ZAMZAM_PHONE}</a>.
+          </p>
         </div>
-      ) : (
-        <form onSubmit={submit} className="zz-contact-form" noValidate>
-          <div className={"zz-field" + (errors.name ? " has-error" : "")}>
-            <input id="ct-name" placeholder="Name" autoComplete="name" value={form.name} onChange={set("name")} aria-label="Name" aria-invalid={!!errors.name} />
-            {errors.name && <p className="zz-error" role="alert">{errors.name}</p>}
-          </div>
-          <div className={"zz-field" + (errors.email ? " has-error" : "")}>
-            <input id="ct-email" type="email" inputMode="email" placeholder="Email" autoComplete="email" value={form.email} onChange={set("email")} aria-label="Email" aria-invalid={!!errors.email} />
-            {errors.email && <p className="zz-error" role="alert">{errors.email}</p>}
-          </div>
-          <div className={"zz-field" + (errors.phone ? " has-error" : "")}>
-            <input id="ct-phone" type="tel" inputMode="tel" placeholder="Mobile number" autoComplete="tel" value={form.phone} onChange={set("phone")} aria-label="Mobile number" aria-invalid={!!errors.phone} />
-            {errors.phone && <p className="zz-error" role="alert">{errors.phone}</p>}
-          </div>
-          <textarea rows="3" placeholder="Your question (Optional)" value={form.q} onChange={set("q")} aria-label="Your question" />
-          <div className="zz-hp" aria-hidden="true">
-            <label>Website<input tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} /></label>
-          </div>
-          <button className="btn gold btn-block" type="submit" disabled={loading}>
-            {loading ? "Sending..." : "Send question & Lock your offer"}
-          </button>
-          <p className="zz-contact-fine">By sending this you agree to be contacted by Zamzam Capital by phone, email and WhatsApp.</p>
-        </form>
-      )}
+        <div className="zz-final-card">
+          {sent ? (
+            <div className="zz-wb-done" role="status">
+              <h3>Thank you, {form.name.trim().split(" ")[0] || "friend"}</h3>
+              <p>We have your details and will call you soon.</p>
+              <OfferWon />
+            </div>
+          ) : (
+            <form onSubmit={submit} noValidate className="zz-wb-form" aria-label="Contact us">
+              <Field id="ct-name" label="Full name" error={errors.name}>
+                <input id="ct-name" value={form.name} onChange={set("name")} autoComplete="name" placeholder="Your name" aria-invalid={!!errors.name} />
+              </Field>
+              <Field id="ct-phone" label="Mobile number" error={errors.phone}>
+                <input id="ct-phone" type="tel" inputMode="tel" value={form.phone} onChange={set("phone")} autoComplete="tel" placeholder="98765 43210" aria-invalid={!!errors.phone} />
+              </Field>
+              <Field id="ct-q" label="Your question (optional)">
+                <textarea id="ct-q" rows="3" value={form.q} onChange={set("q")} placeholder="What would you like to ask?" />
+              </Field>
+
+              <div className="zz-hp" aria-hidden="true">
+                <label>Website<input tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} /></label>
+              </div>
+
+              <div className={"zz-consent" + (errors.consent ? " has-error" : "")}>
+                <label>
+                  <input id="ct-consent" type="checkbox" checked={form.consent} onChange={set("consent")} />
+                  <span>I agree to be contacted by Zamzam Capital about my question, the 20% offer and updates by phone, email and WhatsApp.</span>
+                </label>
+                {errors.consent && <p className="zz-error" role="alert">{errors.consent}</p>}
+              </div>
+
+              <button className="btn gold btn-block" type="submit" disabled={loading}>
+                {loading ? "Please wait..." : "Send question & lock your offer"}
+              </button>
+            </form>
+          )}
+        </div>
+      </div>
     </section>
   );
 }

@@ -4,7 +4,7 @@
  * What it does
  *  1. Receives both forms from the landing page and saves each in its own sheet (tab).
  *     - "Contact Us": one row per "Have a question? Talk to us" submission
- *       (name, email, phone, question).
+ *       (name, mobile, question).
  *     - "Financial Freedom": one row per person, updated after every question,
  *       so you can see where people drop off.
  *  2. Optionally emails your team when someone completes the Financial Freedom plan

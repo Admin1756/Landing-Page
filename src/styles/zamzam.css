@@ -382,3 +382,20 @@ body { margin: 0; }
   .zz-offer-bar.won { font-size: 12.5px; }
 }
 .zz-contact-success .zz-won { font-weight: 400; }
+
+/* ---------- Contact band (same look as the old workbook form) ---------- */
+.zz .zz-final { max-width: none; background: linear-gradient(160deg, #061912, #034b33); color: #fff; padding: 64px 20px; }
+.zz-final-inner { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.zz-final h2 { color: #fff; }
+.zz-final p { color: #d1d5db; line-height: 1.6; margin-top: 14px; }
+.zz-final a { color: var(--zz-yellow); font-weight: 700; }
+.zz-final-card { background: #fff; color: var(--zz-dark); border-radius: 20px; padding: 28px 24px; display: grid; gap: 14px; text-align: left; }
+.zz-final-card p { color: var(--zz-slate); margin-top: 0; }
+.zz-final-card .zz-error { color: #b83232; }
+.zz-final-card .zz-consent label span { color: var(--zz-slate); }
+.zz-wb-form { display: grid; gap: 14px; text-align: left; }
+.zz-wb-done { display: grid; gap: 14px; justify-items: stretch; }
+.zz-wb-done h3 { font-family: var(--zz-font-display); font-size: 22px; color: var(--zz-dark); }
+.zz-wb-done p { margin: 0; line-height: 1.55; }
+@media (max-width: 860px) { .zz-final-inner { grid-template-columns: 1fr; gap: 28px; } }
+.zz textarea { font-family: inherit; }
