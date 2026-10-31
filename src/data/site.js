@@ -11,11 +11,11 @@ export const SMALLCASES = [
 ];
 
 export const COMPARISON_COLUMNS = [
-  { label: "Zamzam New India Theme (High Growth)", retPerYear: "30.7%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
-  { label: "Zamzam Leaders Smart Beta (Balanced)", retPerYear: "25.4%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
-  { label: ["Tata ", <br key="br" />, " Ethical Fund"], retPerYear: "-9.8%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
-  { label: "Taurus Ethical Fund", retPerYear: "-4.9%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
-  { label: "Quantum Ethical Fund", retPerYear: "-3.1%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+  { label: "Zamzam New India Theme (High Growth)", retPerYear: "21.5%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
+  { label: "Zamzam Leaders Smart Beta (Balanced)", retPerYear: "21.1%", fee: "Flat subscription fee", screen: "3-stage process", isUs: true },
+  { label: ["Tata ", <br key="br" />, " Ethical Fund"], retPerYear: "-8.9%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+  { label: "Taurus Ethical Fund", retPerYear: "-6.3%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
+  { label: "Quantum Ethical Fund", retPerYear: "-3.5%", fee: "1-2% of investment + exit load", screen: "2-stage process", isUs: false },
 ];
 
 export const TESTIMONIALS = [

@@ -131,7 +131,7 @@
 .zz-card { background: #fff; border: 1px solid var(--zz-border); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(6,25,18,0.06); width: 100%; max-width: 340px; }
 .zz-card-head { padding: 16px 18px; display: flex; justify-content: space-between; align-items: center; gap: 10px; border-bottom: 1px solid var(--zz-border); text-align: left; }
 .zz-card-title { font-size: 18px; }
-.zz-card-risk { font-weight: 700; font-size: 14px; }
+.zz .zz-card-risk { font-weight: 700; font-size: 24px; }
 .zz-card-risk.risk-low { color: #0c8c63; }
 .zz-card-risk.risk-medium { color: #b58900; }
 .zz-card-risk.risk-high { color: #b83232; }
@@ -399,3 +399,4 @@ body { margin: 0; }
 .zz-wb-done p { margin: 0; line-height: 1.55; }
 @media (max-width: 860px) { .zz-final-inner { grid-template-columns: 1fr; gap: 28px; } }
 .zz textarea { font-family: inherit; }
+.zz-card-return { flex: none; } .zz-card-return-label { white-space: nowrap; }
