@@ -42,7 +42,7 @@ export const PIXEL_EVENTS = {
 };
 
 /* ---------- Google Sheets (Apps Script web app) ---------- */
-export const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwEkHo_yTJlLR38ppBmpekHmmyXOEVNLLrjlY63WrhaKU_a3Nwbc2hVQI5CnQzSQnPM/exec";
+export const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzHFcfxz5Y2kvqUnQccnJKxwSyEYmiA3OIdDtJWZemD_Tw8aFhQ7GLmP0C_17AVEXXm/exec";
 export const APPS_SCRIPT_SECRET = "VtOvatYL6rqTsUPrwEmrwJoH5SIhgqMi5ehOXegC0J0="; // must match SECRET in apps-script/Code.gs
 
 // Form keys. Each one gets its own tab via apps-script/Code.gs
