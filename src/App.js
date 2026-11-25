@@ -71,6 +71,7 @@ function Page() {
 
       {coupon && <CouponModal item={coupon} onProceed={handleProceed} onClose={() => setCoupon(null)} />}
       {profile && <AssessmentModal profile={profile} onClose={() => setProfile(null)} />}
+      {video && <VideoModal key={video} videoKey={video} onClose={() => setVideo(null)} />}
     </div>
   );
 }
