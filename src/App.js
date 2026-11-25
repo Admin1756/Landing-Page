@@ -31,6 +31,7 @@ function Page() {
   const { claim } = useOffer();
   const [profile, setProfile] = useState(null); // set when the Financial Freedom form is submitted
   const [coupon, setCoupon] = useState(null);   // the smallcase whose coupon pop-up is open
+  const [video, setVideo] = useState(null);     // "yusuf" | "subscribe" | null
 
   // Meta Pixel base code + PageView are in public/index.html
   useEffect(() => { captureAttribution(); }, []);
@@ -51,11 +52,16 @@ function Page() {
   return (
     <div className="zz">
       <OfferBanner />
-      <Navbar />
-      <Hero onStart={setProfile} />
+      <Navbar />      
+    <Hero onStart={setProfile} onWatch={() => setVideo("yusuf")} />
       <TrustStrip />
       <ComparisonTable />
       <SmallcaseSection onInvest={handleSubscribe} />
+      <div className="zz-center-btn">
+        <button className="btn gold" onClick={() => setVideo("subscribe")}>
+          How to subscribe and invest to smallcase
+        </button>
+      </div>
       <Calculator />
       <Founder />
       <Testimonials />
