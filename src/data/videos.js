@@ -4,18 +4,18 @@ export const VIDEOS = {
     title: "Yusuf's Story",
     items: [
       { lang: "English", url: "https://youtube.com/shorts/bxUOy1jiziA" },
-      { lang: "Hindi",   url: "" },
-      { lang: "Tamil",   url: "" },
-      { lang: "Telugu",  url: "" },
+      { lang: "Hindi",   url: "https://youtube.com/shorts/e6pdeUtNxF4" },
+      { lang: "Malayalam",   url: "https://youtube.com/shorts/EgCrzur8vys" },
+      { lang: "Tamil",  url: "https://youtube.com/shorts/F_L_ak7jhUM" },
     ],
   },
   subscribe: {
     title: "How to subscribe and invest in smallcase",
     items: [
       { lang: "English", url: "https://youtube.com/shorts/F_L_ak7jhUM" },
-      { lang: "Hindi",   url: "" },
-      { lang: "Tamil",   url: "" },
-      { lang: "Telugu",  url: "" },
+      { lang: "Hindi",   url: "https://youtube.com/shorts/48rVE2u6JQ0" },
+      { lang: "Malyalam",   url: "https://youtube.com/shorts/ocYB-t-Hubc" },
+      { lang: "Tamil",  url: "https://youtube.com/shorts/4Jq5xfJioUg" },
     ],
   },
 };
