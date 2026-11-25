@@ -11,7 +11,7 @@ export default function VideoModal({ videoKey, onClose }) {
   const id = ytId(items[active].url);
 
   return (
-    <Modal title={cfg.title} onClose={onClose} labelId="zz-video-title">
+<Modal title={cfg.title} onClose={onClose} labelId="zz-video-title" className="video">
       <div className="zz-video-body">
         <h3 id="zz-video-title">{cfg.title}</h3>
         <div className="zz-video-frame">
