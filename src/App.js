@@ -19,6 +19,7 @@ import ContactSection from "./components/ContactSection";
 import Footer from "./components/Footer";
 import CouponModal from "./components/CouponModal";
 import AssessmentModal from "./components/AssessmentModal";
+import VideoModal from "./components/VideoModal";
 
 const pixelParams = (item) => ({
   content_name: item.name,
