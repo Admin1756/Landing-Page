@@ -3,7 +3,7 @@ import { fire } from "../utils/pixel";
 import { scrollTo } from "../utils/scroll";
 import FinancialFreedomForm from "./FinancialFreedomForm";
 
-export default function Hero({ onStart }) {
+export default function Hero({ onStart, onWatch }) {
   const viewComparison = () => {
     fire("viewComparison", { content_name: "Comparison Chart" });
     scrollTo("comparison");
@@ -22,6 +22,9 @@ export default function Hero({ onStart }) {
           <div className="zz-hero-actions">
             <button className="btn gold" onClick={() => scrollTo("smallcases")}>Pick a smallcase</button>
             <button className="btn ghost" onClick={viewComparison}>View Comparison Chart</button>
+          </div>
+          <div className="zz-hero-watch">
+            <button className="btn ghost" onClick={onWatch}>Watch Yusuf's Story</button>
           </div>
           <p className="zz-hero-footnote"><i>{HERO_FOOTNOTE}</i></p>
         </div>
